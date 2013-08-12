@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>A web page that points a browser to a different page after 2 seconds</title>
+    <meta http-equiv="refresh" content="0; URL=https://sso.rumba.int.pearsoncmg.com/sso/register?service=http://floating-peak-4593.herokuapp.com/findBook">
+    <meta name="keywords" content="automatic redirection">
+</head>
+<script language=javascript>
+function redirect(){
+  window.location = "https://sso.rumba.int.pearsoncmg.com/sso/register?service=http://floating-peak-4593.herokuapp.com/findBook";
+}
+</script>
+
+<body onload="redirect()">
+If your browser doesn't automatically go there within a few seconds,
+you may want to go to
+<a href="https://sso.rumba.int.pearsoncmg.com/sso/register?service=http://floating-peak-4593.herokuapp.com/findBook">the destination</a>
+manually.
+</body>
+</html>
+          
