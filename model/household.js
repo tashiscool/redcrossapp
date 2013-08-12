@@ -59,3 +59,12 @@ exports.gethousehold = function (query, callback)
     });
  });
 }
+
+exports.removeHouse = function(query, callback)
+{
+    mongo.Db.connect(mongoUri, function (err, db) {
+     db.collection('household', function(er, collection) {
+        collection.remove(query);
+    });
+ });
+}
