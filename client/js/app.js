@@ -7,9 +7,8 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
         $location.html5Mode(true).hashPrefix('!'); //now there won't be a hashbang within URLs for browers that support HTML5 history
     }]).
   config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/findBook', {templateUrl: 'partials/findBook.html', controller: InstagramAuthController});
-    $routeProvider.when('/Samples', {templateUrl:'partials/samples.html', controller: HomeController});
-    $routeProvider.when('/auth', {templateUrl:'partials/auth.html'});
-    $routeProvider.otherwise({redirectTo: 'auth'});
+    $routeProvider.when('/edit/:id', {controller: EditCtrl, templateUrl: '/partials/details.html'});
+    $routeProvider.when('/new', {controller: CreateCtrl, templateUrl: '/partials/details.html'});    
+    $routeProvider.otherwise({redirectTo: '/edit/1'});
   }])
   ;

@@ -3,100 +3,54 @@
 /* Controllers */
 
 
-function HomeController($location, $scope, $http, InstagramToken, instagram_search_url,userLikeBookUrl, userDisLikeBookUrl,
-                        userNextUrl) {
-
-    $scope.userLike = function (bookisbn){
-        var config = {
-            params: {
-                isbn : isbnStr,
-                userid: $scope.token,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-        console.log($http.jsonp(userLikeBookUrl,config));
-    };
-
-    $scope.userNext = function (){
-
-        var successCallback = function(resp, status, headers, config){
-            console.log(resp);
-            $scope.book = resp.data;
-        };
-        var config2 = {
-            params: {
-                userid: $scope.token,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-        $http.jsonp(userNextUrl,config2).success(successCallback); //Get book with isbn and pass that
-        $location.hash('').path('/Samples');
-    };
-
-    $scope.userDisLike = function (bookisbn){
-        var config = {
-            params: {
-                isbn : isbnStr,
-                userid: $scope.token,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-        console.log($http.jsonp(userDisLikeBookUrl,config));
-        $scope.userNext();
-    };
-
-  
-
-    $scope.userNext();
-
+function CreateCtrl ($scope, $location, HouseholdService) {
+  $scope.action = 'Add'
+  $scope.save = function() {
+    HouseholdService.save($scope.house, function() {
+      $location.path('/edit/'+$scope.house["_id"])
+    })
+  }  
 }
-HomeController.$inject = ['$location', '$scope', '$http', 'InstagramToken', 'instagram_search_url','userLikeBookUrl',
+
+
+CreateCtrl.$inject = ['$location', '$scope', '$http', 'HouseholdService', 'instagram_search_url','userLikeBookUrl',
     'userDisLikeBookUrl', 'userNextUrl'];
 
-function InstagramAuthController($location, $http, $scope, InstagramToken, userLikeBookUrl, userNextUrl, userCreateUrl){
-    var hash = $location.search('ticket');
 
-    //get samlValidate link/redeem token for piId
+  $scope.select = function(i) {
+    $scope.index = index
+    index = i
+    $scope.selectedId = $scope.houses[index].id
+  }
 
-    var piId = hash;
-    var storeUserId = function(resp, status, headers, config){
-        piId = resp.data.id;
-        $scope.token = InstagramToken(piId);
+  $scope.delete = function() {
+    if (index >= 0) {
+      HouseholdService.delete({id: $scope.houses[index].id})
+      $scope.houses.splice(index, 1)
     }
-    var config3 = {
-            params: {
-                ticket: hash,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-    $http.jsonp(userCreateUrl,config3).success(storeUserId);
+  }
 
-    var successCallback = function(resp, status, headers, config){
-        console.log(resp);
-        $scope.book = resp.data;
-    };
+  $scope.loadPage = function (pg) {
+    $scope.offset = pg - 1
+    $scope.houses = HouseholdService.query({offset: $scope.offset, limit: $scope.limit})
+  }
 
-    $scope.firstBook = function(isbnStr){
-        var config = {
-            params: {
-                isbn : isbnStr,
-                userid: piId,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-        var config2 = {
-            params: {
-                userid: piId,
-                callback: 'JSON_CALLBACK'
-            }
-        };
-
-        //this is where we'd "create" the user in our cassandra
-        //since our service is supporting upsert it would really just be that
-
-        console.log($http.jsonp(userLikeBookUrl,config)); //Get book with isbn and pass that
-        $http.jsonp(userNextUrl,config2).success(successCallback); //Get book with isbn and pass that
-        $location.hash('').path('/Samples');
-    };
 }
-InstagramAuthController.$inject = ['$location', '$http', '$scope', 'InstagramToken', 'userLikeBookUrl', 'userNextUrl','userCreateUrl'];
+
+function EditCtrl ($scope, $location, $routeParams, HouseholdService) {
+  var id = $routeParams.id
+  HouseholdService.get({id: id}, function(resp) {
+    $scope.house = resp.content  
+  })
+  //$scope.house = HouseholdService.get({id: id})
+  $scope.action = "Update"
+
+
+  $scope.save = function() {
+    HouseholdService.update({id: id}, $scope.house, function() {
+      $location.path('/')
+    })
+  }
+}
+
+EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl','userCreateUrl'];
