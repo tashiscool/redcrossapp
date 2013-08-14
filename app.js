@@ -7,7 +7,9 @@
  , routes = require('./routes')
  , households = require('./routes/household')
  , http = require('http')
- , path = require('path');
+ , path = require('path')
+  , reload = require('reload')
+  , colors = require('colors');
 
  var app = express();
  var mongo = require('mongodb');
@@ -56,13 +58,13 @@ app.get('/', function(req, res) {
   res.sendfile(path.join(clientDir, 'index.html'))
 })
 
-app.get('/api/households', households.list) 
+//app.get('/api/households', households.list) 
 
-app.get('/api/households/total', households.total) //placement matters
+//app.get('/api/households/total', households.total) //placement matters
 
 app.get('/api/households/:id', households.read) //sometimes called 'show'
 app.post('/api/households', households.create)
-app.put('/api/households/:id', households.update)
+//app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del)
 
 
