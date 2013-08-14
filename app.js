@@ -5,7 +5,7 @@
 
  var express = require('express')
  , routes = require('./routes')
- , user = require('./routes/household')
+ , households = require('./routes/household')
  , http = require('http')
  , path = require('path');
 
