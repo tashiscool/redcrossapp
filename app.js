@@ -16,10 +16,11 @@
  var Db = mongo.Db;
  var Server = mongo.Server;
  var Connection = mongo.Connection;
- var redis = require('redis-url').connect(process.env.REDISTOGO_URL);
+  var redisUri =process.env.REDISTOGO_URL || 'redis://redistogo:5b797ebf5aaa6df8f7381c23ee4f1d46@crestfish.redistogo.com:9783/';
+ var redis = require('redis-url').connect(redisUri);
  var port = process.env.PORT || 5000;
 
- var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb'; 
+ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://heroku_app17502076:s4gakbevdsv4tgbmld3vh8d3k0@ds041248.mongolab.com:41248/heroku_app17502076'; 
 
 
  var clientDir = path.join(__dirname, 'client');
