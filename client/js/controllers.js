@@ -3,8 +3,13 @@
 /* Controllers */
 
 
-function CreateCtrl ($scope, $location, HouseholdService) {
-  $scope.action = 'Add'
+function CreateCtrl ($scope, $location,HouseholdService) {
+  init();
+
+  function init() {
+    $scope.action = 'Add';
+  }
+
   $scope.save = function() {
     HouseholdService.save($scope.house, function() {
       $location.path('/edit/'+$scope.house["_id"])
@@ -31,24 +36,25 @@ function CreateCtrl ($scope, $location, HouseholdService) {
   }
 
 }
-CreateCtrl.$inject = ['$location', '$scope', '$http', 'HouseholdService', 'instagram_search_url','userLikeBookUrl',
-    'userDisLikeBookUrl', 'userNextUrl'];
+CreateCtrl.$inject = ['$scope','$location', '$http','HouseholdService'];
 
 
-function EditCtrl ($scope, $location, $routeParams, HouseholdService) {
+function EditCtrl ($scope, $location, $routeParams) {
   var id = $routeParams.id
-  HouseholdService.get({id: id}, function(resp) {
-    $scope.house = resp.content  
-  })
+  // HouseholdService.get({id: id}, function(resp) {
+  //   $scope.house = resp.content  
+  // })
   //$scope.house = HouseholdService.get({id: id})
   $scope.action = "Update"
 
 
   $scope.save = function() {
-    HouseholdService.update({id: id}, $scope.house, function() {
-      $location.path('/')
-    })
+    // HouseholdService.update({id: id}, $scope.house, function() {
+    //   $location.path('/')
+    // })
   }
 }
+
+
 
 EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl','userCreateUrl'];

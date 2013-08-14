@@ -27,6 +27,3 @@ angular.module('myApp.services', []).
     }
   }]);
 
-  angular.module('myApp', ['ngResource']).factory('HouseholdService', function($resource) {
-  return $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
-});
