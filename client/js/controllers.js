@@ -16,6 +16,7 @@ function CreateCtrl ($scope, $location,HouseholdService) {
   }
 
   $scope.save = function() {
+    alert($scope.house);
     HouseholdService.save($scope.house, function() {
       $location.path('/edit/'+$scope.house["_id"])
     })
