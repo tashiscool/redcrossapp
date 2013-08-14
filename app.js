@@ -67,9 +67,9 @@ app.post('/api/households', households.create);
 //app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del);
 
-app.get('*', function(req, res) {
-  res.sendfile(path.join(clientDir, 'index.html'));
-});
+// app.get('*', function(req, res) {
+//   res.sendfile(path.join(clientDir, 'index.html'));
+// });
 
 var server = http.createServer(app)
 
