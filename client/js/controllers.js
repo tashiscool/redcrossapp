@@ -10,11 +10,6 @@ function CreateCtrl ($scope, $location, HouseholdService) {
       $location.path('/edit/'+$scope.house["_id"])
     })
   }  
-}
-
-
-CreateCtrl.$inject = ['$location', '$scope', '$http', 'HouseholdService', 'instagram_search_url','userLikeBookUrl',
-    'userDisLikeBookUrl', 'userNextUrl'];
 
 
   $scope.select = function(i) {
@@ -36,6 +31,9 @@ CreateCtrl.$inject = ['$location', '$scope', '$http', 'HouseholdService', 'insta
   }
 
 }
+CreateCtrl.$inject = ['$location', '$scope', '$http', 'HouseholdService', 'instagram_search_url','userLikeBookUrl',
+    'userDisLikeBookUrl', 'userNextUrl'];
+
 
 function EditCtrl ($scope, $location, $routeParams, HouseholdService) {
   var id = $routeParams.id
