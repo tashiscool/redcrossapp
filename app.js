@@ -58,6 +58,10 @@ app.get('/', function(req, res) {
   res.sendfile(path.join(clientDir, 'index.html'))
 })
 
+app.get('/partials/:name', function(req, res) {
+  res.sendfile(path.join(clientDir, 'index.html'))
+});
+
 //app.get('/api/households', households.list) 
 
 //app.get('/api/households/total', households.total) //placement matters
