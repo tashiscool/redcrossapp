@@ -9,7 +9,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
   	config(['$routeProvider', function($routeProvider) {
     	$routeProvider.when('/partials/edit/:id', {controller: EditCtrl, templateUrl: 'partials/details.html'});
     	$routeProvider.when('/partials/new', {controller: CreateCtrl, templateUrl: 'partials/details.html'});  
-    	$routeProvider.otherwise({redirectTo: '/new'});
+    	$routeProvider.otherwise({redirectTo: '/partials/new'});
   	}]).
   	factory('HouseholdService', function($resource) {
   		return $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
