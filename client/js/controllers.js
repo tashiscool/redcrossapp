@@ -8,6 +8,11 @@ function CreateCtrl ($scope, $location,HouseholdService) {
 
   function init() {
     $scope.action = 'Add';
+    var house = {};
+    $scope.house = house;
+    // HouseholdService.save($scope.house, function() {
+      //$location.path('/edit/'+$scope.house["_id"])
+    // })
   }
 
   $scope.save = function() {

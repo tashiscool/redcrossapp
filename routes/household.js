@@ -15,8 +15,8 @@
  };
 
  exports.create = function (req, res){
- 	var household = req.body;
- 	household.savehousehold(function(docs, foo)
+ 	var householdbody = req.body;
+ 	household.savehousehold(householdbody,function(docs, foo)
  	{
  		return docs;
  	});
