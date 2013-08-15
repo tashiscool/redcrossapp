@@ -3,9 +3,10 @@
 /* Controllers */
 
 
-function CreateCtrl ($scope, $location,HouseholdService) {
+function CreateCtrl ($scope, $location,$http, HouseholdService, $resource) {
   init();
 
+  var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
   function init() {
     $scope.action = 'Add';
     var house = {};
@@ -16,10 +17,14 @@ function CreateCtrl ($scope, $location,HouseholdService) {
   }
 
   $scope.save = function() {
-    alert($scope.house);
-    HouseholdService.save($scope.house, function() {
-      $location.path('/edit/'+$scope.house["_id"])
-    })
+    // HouseHold.save($scope.house, function() {
+    //   $location.path('/edit/'+$scope.house["_id"])
+    // })
+      $http.post('/api/households', $scope.house).success(function (data){
+        console.log("recieved from api" + data.id+ " id " + data["_id"]);
+        $scope.house.id = data["_id"]
+        $location.path('/edit/'+$scope.house.id);
+      });
   }  
 
 
@@ -42,7 +47,7 @@ function CreateCtrl ($scope, $location,HouseholdService) {
   }
 
 }
-CreateCtrl.$inject = ['$scope','$location', '$http','HouseholdService'];
+CreateCtrl.$inject = ['$scope','$location', '$http','HouseholdService', '$resource'];
 
 
 function EditCtrl ($scope, $location, $routeParams) {

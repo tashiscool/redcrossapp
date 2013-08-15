@@ -10,15 +10,28 @@
  	var query = '{ _id : ' + id + '}';
  	household.gethousehold(query,function(docs)
  	{
- 		return docs;		
+ 		res.json(docs);		
  	});
  };
 
  exports.create = function (req, res){
  	var householdbody = req.body;
- 	household.savehousehold(householdbody,function(docs, foo)
+ 	console.log('creating' + householdbody);
+ 	household.savehousehold(householdbody,function(err, rs)
  	{
- 		return docs;
+ 		if (err)
+ 		{
+ 				res.json(err);
+ 		}
+ 		else if (rs.length > 0)
+ 		{
+ 			console.log('returning' + rs[0]);
+ 			res.json(rs[0]);
+ 		}	
+ 		else
+ 		{
+ 			res.json({});
+ 		}
  	});
  };
 
@@ -27,7 +40,7 @@
  	var query = '{ _id : ' + id + '}';
  	household.removeHouse(query,function(docs)
  	{
-		return docs;  		
+		res.json(docs);		
  	});
   
 }

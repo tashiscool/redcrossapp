@@ -11,9 +11,9 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
     	$routeProvider.when('/new', {controller: CreateCtrl, templateUrl: 'partials/details.html'});  
     	$routeProvider.otherwise({redirectTo: '/new'});
   	}]).
-  	factory('HouseholdService',['$resource', function($resource) {
+  	factory('HouseholdService', function($resource) {
   		return $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
-	}])
+	})
   ;
 
 
