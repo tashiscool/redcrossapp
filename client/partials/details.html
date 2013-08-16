@@ -1,5 +1,7 @@
 <h2>{{action}} HouseHold</h2>
 
+<a class="branding" href="/"> <img class="logo" src="/images/redcross-logo.png" alt="American Red Cross" /> </a> 
+
 <script type="text/ng-template" id="formfield2.html">
   <div id="template">
   <div class="control-group">
@@ -12,12 +14,19 @@
 
 <form name="houseform" class="form-horizontal">
   <formfield prop="Id" ng-model="house.id"></formfield>
-  <formfield prop="Address" ng-model="house.title"></formfield>
-  <formfield prop="City" ng-model="house.mileage"></formfield>
-  <formfield prop="Zip" ng-model="house.price"></formfield>
-  <formfield2 prop="" ng-model="house.year">
-    <input type="text" ng-model="house.year">
-  </formfield2>
+  <formfield prop="Phone" ng-model="house.phone">
+  <formfield prop="Address" ng-model="house.address"></formfield>
+  <formfield prop="City" ng-model="house.city"></formfield>
+  <formfield prop="Zip" ng-model="house.zip"></formfield>
+  <formfield prop="E-mail" ng-model="house.email">
+  <formfield prop="Initial Visit" ng-model="house.initvisit">
+  <formfield prop="Renewal" ng-model="house.renew">
+  <formfield prop="Ethnicity" ng-model="house.ethnic">
+  <formfield prop="Last Name" ng-model="house.lname">
+  <formfield prop="First Name" ng-model="house.fname">
+  <formfield prop="Birthdate" ng-model="house.bdate">
+  <formfield prop="ID Type" ng-model="house.idtype">
+  <formfield prop="Sex" ng-model="house.sex">
 
   <div class="form-actions">
     <button ng-click="save()" class="btn btn-primary">
