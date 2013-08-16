@@ -5,6 +5,8 @@
 
  var household = require('../model/household');
 
+
+
  exports.read = function(req, res){
  	var id = req.params.id;
  	var query = { _id : id };
@@ -34,6 +36,28 @@
  		}
  	});
  };
+
+ exports.update = function (req, res){
+ 	var householdbody = req.body;
+ 	console.log('updating' + householdbody);
+ 	household.updatehousehold(householdbody,function(err, rs)
+ 	{
+ 		if (err)
+ 		{
+ 				res.json(err);
+ 		}
+ 		else if (rs.length > 0)
+ 		{
+ 			console.log('returning' + rs[0]);
+ 			res.json(rs[0]);
+ 		}	
+ 		else
+ 		{
+ 			res.json({});
+ 		}
+ 	});
+ };
+
 
  exports.del = function(req, res) {
   var id = req.params.id;

@@ -79,7 +79,7 @@ app.get('/edit/:id', function(req, res) {
 
 app.get('/api/households/:id', households.read); //sometimes called 'show'
 app.post('/api/households', households.create);
-//app.put('/api/households/:id', households.update)
+app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del);
 
 // app.get('*', function(req, res){
