@@ -6,8 +6,8 @@
  var household = require('../model/household');
 
  exports.read = function(req, res){
- 	var id = ~~req.params.id;
- 	var query = '{ _id : ' + id + '}';
+ 	var id = req.params.id;
+ 	var query = { _id : id };
  	household.gethousehold(query,function(docs)
  	{
  		res.json(docs);		
@@ -36,11 +36,22 @@
  };
 
  exports.del = function(req, res) {
-  var id = ~~req.params.id;
- 	var query = '{ _id : ' + id + '}';
+  var id = req.params.id;
+ 	var query = '{ "_id" : "' + id + '"}';
  	household.removeHouse(query,function(docs)
  	{
 		res.json(docs);		
  	});
-  
-}
+  };
+
+ exports.getbyperson = function(req, res){
+ 	var id = req.params.id;
+ 	var birthday = req.params.birthday;
+ 	var lastname = req.params.lastname;
+
+ 	var query = '{ ' + _id  + ' : "' + id + '"}';
+ 	household.gethousehold(query,function(docs)
+ 	{
+ 		res.json(docs);		
+ 	});
+ };

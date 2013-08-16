@@ -59,6 +59,20 @@ app.get('/', function(req, res) {
   res.sendfile(path.join(clientDir, 'index.html'))
 });
 
+// app.get('/partials/:name', function (req, res) {
+//   var name = req.params.name;
+//   res.render(path.join(clientDir, 'partials/' + name));
+// });
+
+app.get('/new', function(req, res) {
+  res.sendfile(path.join(clientDir, 'index.html'))
+});
+
+
+app.get('/edit/:id', function(req, res) {
+  res.sendfile(path.join(clientDir, 'index.html'))
+});
+
 //app.get('/api/households', households.list) 
 
 //app.get('/api/households/total', households.total) //placement matters
@@ -68,9 +82,11 @@ app.post('/api/households', households.create);
 //app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del);
 
-// app.get('*', function(req, res) {
+// app.get('*', function(req, res){
 //   res.sendfile(path.join(clientDir, 'index.html'));
 // });
+
+
 
 var server = http.createServer(app)
 

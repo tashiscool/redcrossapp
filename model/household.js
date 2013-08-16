@@ -55,12 +55,13 @@ exports.gethouseholds = function (callback)
 
 exports.gethousehold = function (query, callback)
 {
+    console.log('running query ' + query);
     mongo.Db.connect(mongoUri, function (err, db) {
      db.collection('household', function(er, collection) {
         collection.find(query).toArray(function (error, docs){
          if (docs == null || docs.length == 0)
          {
-            console.log('doc NOT found');
+            console.log('doc NOT found ' + error);
             callback();
         }
         else
