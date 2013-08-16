@@ -6,6 +6,7 @@
  var express = require('express')
  , routes = require('./routes')
  , households = require('./routes/household')
+  , users = require('./routes/user')
  , http = require('http')
  , path = require('path')
   , reload = require('reload')
@@ -82,8 +83,8 @@ app.post('/api/households', households.create);
 app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del);
 
-app.get('/api/user/auth', user.auth); //sometimes called 'show'
-app.post('/api/user', user.save);
+app.get('/api/user/auth', users.auth); //sometimes called 'show'
+app.post('/api/user', users.save);
 
 // app.get('*', function(req, res){
 //   res.sendfile(path.join(clientDir, 'index.html'));
