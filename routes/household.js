@@ -39,6 +39,8 @@
 
  exports.update = function (req, res){
  	var householdbody = req.body;
+ 	var id = req.params.id;
+ 	householdbody._id = id;
  	console.log('updating' + householdbody);
  	household.updatehousehold(householdbody,function(err, rs)
  	{
