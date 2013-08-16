@@ -1,7 +1,5 @@
 <h2>{{action}} HouseHold</h2>
 
-<a class="branding" href="/"> <img class="logo" src="/images/redcross-logo.png" alt="American Red Cross" /> </a> 
-
 <script type="text/ng-template" id="formfield2.html">
   <div id="template">
   <div class="control-group">
@@ -22,12 +20,23 @@
   <formfield prop="Initial Visit" ng-model="house.initvisit">
   <formfield prop="Renewal" ng-model="house.renew">
   <formfield prop="Ethnicity" ng-model="house.ethnic">
-  <formfield prop="Last Name" ng-model="house.lname">
-  <formfield prop="First Name" ng-model="house.fname">
-  <formfield prop="Birthdate" ng-model="house.bdate">
-  <formfield prop="ID Type" ng-model="house.idtype">
-  <formfield prop="Sex" ng-model="house.sex">
+  <formfield prop="# of People in house" ng-model="house.numpeople">
 
+<div class="active" name="peopleSection" ng-repeat ="people in house.people" >
+  <formfield prop="Last Name" ng-model="people.lname">
+  <formfield prop="First Name" ng-model="people.fname">
+  <formfield prop="Birthdate" ng-model="people.bdate">
+  <formfield prop="ID Type" ng-model="people.idtype">
+  <formfield prop="Sex" ng-model="people.sex">
+</div>
+
+<div class="active" name="foodTaken" ng-repeat ="foodtaken in house.foodtaken" >
+  <formfield prop="amount" ng-model="foodtaken.amount">
+  <formfield prop="On" ng-model="foodtaken.date">
+  <formfield prop="By" ng-model="foodtaken.by">
+  <formfield prop="time" ng-model="foodtaken.time">
+  
+</div>
   <div class="form-actions">
     <button ng-click="save()" class="btn btn-primary">
       {{action}}
