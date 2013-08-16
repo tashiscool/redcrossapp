@@ -82,11 +82,28 @@ app.post('/api/households', households.create);
 app.put('/api/households/:id', households.update)
 app.del('/api/households/:id', households.del);
 
+app.get('/api/user/auth', user.auth); //sometimes called 'show'
+app.post('/api/user', user.save);
+
 // app.get('*', function(req, res){
 //   res.sendfile(path.join(clientDir, 'index.html'));
 // });
 
+app.post('/login', function (req, res) {
+  var post = req.body;
+  var id = user.auth(post.user,post.password);
+  if (id) {
+    req.session.user_id = id;
+    res.redirect('/my_secret_page');
+  } else {
+    res.send('Bad user/pass');
+  }
+});
 
+app.get('/logout', function (req, res) {
+  delete req.session.user_id;
+  res.redirect('/login');
+}); 
 
 var server = http.createServer(app)
 
