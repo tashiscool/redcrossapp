@@ -55,9 +55,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// app.get('/', function(req, res) {
-//   res.sendfile(path.join(clientDir, 'index.html'))
-// });
+app.get('/', function(req, res) {
+  res.sendfile(path.join(clientDir, 'index.html'))
+});
 
 // app.get('/partials/:name', function (req, res) {
 //   var name = req.params.name;
