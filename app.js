@@ -55,23 +55,23 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', function(req, res) {
-  res.sendfile(path.join(clientDir, 'index.html'))
-});
+// app.get('/', function(req, res) {
+//   res.sendfile(path.join(clientDir, 'index.html'))
+// });
 
 // app.get('/partials/:name', function (req, res) {
 //   var name = req.params.name;
 //   res.render(path.join(clientDir, 'partials/' + name));
 // });
 
-app.get('/new', function(req, res) {
-  res.sendfile(path.join(clientDir, 'index.html'))
-});
+// app.get('/new', function(req, res) {
+//   res.sendfile(path.join(clientDir, 'index.html'))
+// });
 
 
-app.get('/edit/:id', function(req, res) {
-  res.sendfile(path.join(clientDir, 'index.html'))
-});
+// app.get('/edit/:id', function(req, res) {
+//   res.sendfile(path.join(clientDir, 'index.html'))
+// });
 
 //app.get('/api/households', households.list) 
 
