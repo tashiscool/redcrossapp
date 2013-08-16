@@ -37,7 +37,7 @@ exports.updatehousehold = function (household, callback)
 {
     mongo.Db.connect(mongoUri, function (err, db) {
      db.collection('household', function(er, collection) {
-        collection.insert(household, {safe: true}, function(e,rs) {
+        collection.save(household, {safe: true}, function(e,rs) {
             if (rs===undefined)
             {
                 console.log("Excpetion added as " + e);   
