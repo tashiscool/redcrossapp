@@ -8,12 +8,17 @@ function CreateCtrl ($scope, $location,$http, HouseholdService, $resource) {
 
   var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
   function init() {
+    $scope.user = { username: "", password: "", auth : false};
     $scope.action = 'Add';
     var house = {};
     $scope.house = house;
     // HouseholdService.save($scope.house, function() {
       //$location.path('/edit/'+$scope.house["_id"])
     // })
+    if(!$scope.user.auth)
+    {
+      $location.path('/login');
+    }
   }
 
   $scope.save = function() {
@@ -66,6 +71,22 @@ function EditCtrl ($scope, $location, $routeParams) {
   }
 }
 
-
-
 EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl','userCreateUrl'];
+
+function loginCtrl ($scope, $location,$http, HouseholdService, $resource) {
+
+  $scope.login = function() {
+    $http.get('/api/user/auth?username='+$scope.user.username+'&password='+ $scope.user.password, $scope.house).success(function (data){
+        console.log("recieved from api" + data.id+ " id " + data["_id"]);
+        if (data === undefined)
+        {
+          $scope.user.auth = false;
+        }
+        else 
+        {
+          $scope.user.auth = true;
+        }
+      });
+  }
+}
+loginCtrl.$inject = ['$scope','$location', '$http','HouseholdService', '$resource'];
