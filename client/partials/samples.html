@@ -1,7 +1,10 @@
-<a ng-show="!token" ng-href="https://sso.rumba.int.pearsoncmg.com/sso/login?service=http://floating-peak-4593.herokuapp.com/">Authorize to Pearson</a>
-<div class="samples" >
+<a ng-show="!token"
+   ng-href="https://sso.rumba.int.pearsoncmg.com/sso/login?service=http://floating-peak-4593.herokuapp.com/">Authorize
+    to Pearson</a>
+<div class="samples">
     {{book.title}} | {{book.isbn}}
     <br/>
     {{book.sample}}
 </div>
-<a ng-click="userLike({{book.isbn}})">Like</a> |<a ng-click="userDisLike({{book.isbn}})">Dislike</a> |<a ng-click="userNext()">next</a>
+<a ng-click="userLike({{book.isbn}})">Like</a> |<a ng-click="userDisLike({{book.isbn}})">Dislike</a> |<a
+        ng-click="userNext()">next</a>

@@ -1,34 +1,37 @@
 <!doctype html>
-<html lang="en" ng-app="myApp" >
+<html lang="en" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Red Cross</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Cross</title>
 
-  <link rel="stylesheet" href="/css/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.css" media="screen">
 </head>
 <body>
 
-<div> <a class="branding" href="/"> <img class="logo" src="/img/redcross-logo.png" alt="American Red Cross" /> </a> </div>
+<div><a class="branding" href="/"> <img class="logo" src="/img/redcross-logo.png" alt="American Red Cross"/> </a></div>
 
-  <div ng-view></div>
+<div ng-include="'partials/header.tpl.html'"></div>
+<div ng-include="'partials/notifications.tpl.html'" class="container-fluid"
+     ng-show="notifications.getCurrent().length"></div>
+<div ng-view></div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
-  -->
-  <script src="lib/angular/angular.min.js"></script>
-  <script src="lib/angular/angular-cookies.min.js"></script>
-  <script src="lib/angular/angular-resource.min.js"></script>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+-->
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular/angular-cookies.min.js"></script>
+<script src="lib/angular/angular-resource.min.js"></script>
 
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script src="https://raw.github.com/placemarker/jQuery-MD5/master/jquery.md5.js"></script>
-  <script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://raw.github.com/placemarker/jQuery-MD5/master/jquery.md5.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
 
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
 
 </body>
 </html>

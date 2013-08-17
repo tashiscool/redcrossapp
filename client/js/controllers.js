@@ -3,90 +3,169 @@
 /* Controllers */
 
 
-function CreateCtrl ($scope, $location,$http, HouseholdService, $resource) {
-  init();
+function CreateCtrl($scope, $location, $http, HouseholdService, $resource) {
+    init();
 
-  var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
-  function init() {
-    $scope.user = { username: "", password: "", auth : false};
-    $scope.action = 'Add';
-    var house = {};
-    $scope.house = house;
-    // HouseholdService.save($scope.house, function() {
-      //$location.path('/edit/'+$scope.house["_id"])
-    // })
-    if(!$scope.user.auth)
-    {
-      $location.path('/login');
-    }
-  }
+    var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
 
-  $scope.save = function() {
-    // HouseHold.save($scope.house, function() {
-    //   $location.path('/edit/'+$scope.house["_id"])
-    // })
-      $http.post('/api/households', $scope.house).success(function (data){
-        console.log("recieved from api" + data.id+ " id " + data["_id"]);
-        $scope.house.id = data["_id"]
-        $location.path('/edit/'+$scope.house.id);
-      });
-  }  
-
-
-  $scope.select = function(i) {
-    $scope.index = index
-    index = i
-    $scope.selectedId = $scope.houses[index].id
-  }
-
-  $scope.delete = function() {
-    if (index >= 0) {
-      HouseholdService.delete({id: $scope.houses[index].id})
-      $scope.houses.splice(index, 1)
-    }
-  }
-
-  $scope.loadPage = function (pg) {
-    $scope.offset = pg - 1
-    $scope.houses = HouseholdService.query({offset: $scope.offset, limit: $scope.limit})
-  }
-
-}
-CreateCtrl.$inject = ['$scope','$location', '$http','HouseholdService', '$resource'];
-
-
-function EditCtrl ($scope, $location, $routeParams) {
-  var id = $routeParams.id
-  // HouseholdService.get({id: id}, function(resp) {
-  //   $scope.house = resp.content  
-  // })
-  //$scope.house = HouseholdService.get({id: id})
-  $scope.action = "Update"
-
-
-  $scope.save = function() {
-    // HouseholdService.update({id: id}, $scope.house, function() {
-    //   $location.path('/')
-    // })
-  }
-}
-
-EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl','userCreateUrl'];
-
-function loginCtrl ($scope, $location,$http, HouseholdService, $resource) {
-
-  $scope.login = function() {
-    $http.get('/api/user/auth?username='+$scope.user.username+'&password='+ $scope.user.password, $scope.house).success(function (data){
-        console.log("recieved from api" + data.id+ " id " + data["_id"]);
-        if (data === undefined)
-        {
-          $scope.user.auth = false;
+    function init() {
+        $scope.user = { username: "", password: "", auth: false};
+        $scope.action = 'Add';
+        var house = {};
+        $scope.house = house;
+        // HouseholdService.save($scope.house, function() {
+        //$location.path('/edit/'+$scope.house["_id"])
+        // })
+        if (!$scope.user.auth) {
+            $location.path('/login');
         }
-        else 
-        {
-          $scope.user.auth = true;
+    }
+
+    $scope.save = function () {
+        // HouseHold.save($scope.house, function() {
+        //   $location.path('/edit/'+$scope.house["_id"])
+        // })
+        $http.post('/api/households', $scope.house).success(function (data) {
+            console.log("recieved from api" + data.id + " id " + data["_id"]);
+            $scope.house.id = data["_id"]
+            $location.path('/edit/' + $scope.house.id);
+        });
+    }
+
+
+    $scope.select = function (i) {
+        $scope.index = index
+        index = i
+        $scope.selectedId = $scope.houses[index].id
+    }
+
+    $scope.delete = function () {
+        if (index >= 0) {
+            HouseholdService.delete({id: $scope.houses[index].id})
+            $scope.houses.splice(index, 1)
         }
-      });
-  }
+    }
+
+    $scope.loadPage = function (pg) {
+        $scope.offset = pg - 1
+        $scope.houses = HouseholdService.query({offset: $scope.offset, limit: $scope.limit})
+    }
+
 }
-loginCtrl.$inject = ['$scope','$location', '$http','HouseholdService', '$resource'];
+CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+
+
+function EditCtrl($scope, $location, $routeParams) {
+    var id = $routeParams.id
+    // HouseholdService.get({id: id}, function(resp) {
+    //   $scope.house = resp.content
+    // })
+    //$scope.house = HouseholdService.get({id: id})
+    $scope.action = "Update"
+
+
+    $scope.save = function () {
+        // HouseholdService.update({id: id}, $scope.house, function() {
+        //   $location.path('/')
+        // })
+    }
+}
+
+EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl', 'userCreateUrl'];
+
+function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
+
+    $scope.login = function () {
+        $http.get('/api/user/auth?username=' + $scope.user.username + '&password=' + $scope.user.password, $scope.house).success(function (data) {
+            console.log("recieved from api" + data.id + " id " + data["_id"]);
+            if (data === undefined) {
+                $scope.user.auth = false;
+            }
+            else {
+                $scope.user.auth = true;
+            }
+        });
+    }
+}
+loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+
+
+function HeaderCtrl($scope, $location, $route, security, breadcrumbs, notifications, httpRequestTracker) {
+    $scope.location = $location;
+    // $scope.breadcrumbs = breadcrumbs;
+
+    $scope.isAuthenticated = security.isAuthenticated;
+    $scope.isAdmin = security.isAdmin;
+
+    $scope.home = function () {
+        if (security.isAuthenticated()) {
+            $location.path('/dashboard');
+        } else {
+            $location.path('/projectsinfo');
+        }
+    };
+
+    $scope.isNavbarActive = function (navBarPath) {
+        return navBarPath === breadcrumbs.getFirst().name;
+    };
+
+    $scope.hasPendingRequests = function () {
+        return httpRequestTracker.hasPendingRequests();
+    };
+};
+
+HeaderCtrl.$inject = ['$scope', '$location', '$route', 'security', 'breadcrumbs', 'notifications', 'httpRequestTracker'];
+
+function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
+    $scope.user = user;
+    $scope.password = user.password;
+
+    $scope.onSave = function (user) {
+        $location.path('/admin/users');
+    };
+
+    $scope.onError = function () {
+    };
+
+    $scope.onRemove = function (user) {
+        $location.path('/admin/users');
+    };
+};
+
+CreateUserCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+
+function EditUserCtrl($scope, $location, $http, HouseholdService, $resource) {
+    $scope.user = user;
+    $scope.password = user.password;
+
+    $scope.onSave = function (user) {
+        $location.path('/admin/users');
+    };
+
+    $scope.onError = function () {
+    };
+
+    $scope.onRemove = function (user) {
+        $location.path('/admin/users');
+    };
+};
+
+EditUserCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+
+function ShowUsersCtrl($scope, $location, $http, HouseholdService, $resource) {
+    $scope.user = user;
+    $scope.password = user.password;
+
+    $scope.onSave = function (user) {
+        $location.path('/admin/users');
+    };
+
+    $scope.onError = function () {
+    };
+
+    $scope.onRemove = function (user) {
+        $location.path('/admin/users');
+    };
+};
+
+ShowUsersCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
