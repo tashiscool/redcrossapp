@@ -3,7 +3,7 @@
 <script type="text/ng-template" id="formfield2.html">
     <div id="template">
         <div class="control-group">
-            <label class="control-label" for="{{prop | lowercase}}">{{prop}}</label>
+            <label class="control-label" for="{{ prop | lowercase}}">{{prop}}</label>
 
             <div class="controls" ng-transclude>
             </div>
@@ -12,30 +12,30 @@
 </script>
 
 <form name="houseform" class="form-horizontal">
-    <formfield prop="Id" ng-model="house.id"></formfield>
-    <formfield prop="Phone" ng-model="house.phone"></formfield>
-    <formfield prop="Address" ng-model="house.address"></formfield>
-    <formfield prop="City" ng-model="house.city"></formfield>
-    <formfield prop="Zip" ng-model="house.zip"></formfield>
-    <formfield prop="E-mail" ng-model="house.email"></formfield>
-    <formfield prop="Initial Visit" ng-model="house.initvisit"></formfield>
-    <formfield prop="Renewal" ng-model="house.renew"></formfield>
+    <formfield prop="Id" ng-model="house.id" type="text" ></formfield>
+    <formfield prop="Phone" ng-model="house.phone" type="text" ></formfield>
+    <formfield prop="Address" ng-model="house.address" type="text" ></formfield>
+    <formfield prop="City" ng-model="house.city" type="text" ></formfield>
+    <formfield prop="Zip" ng-model="house.zip" type="text" ></formfield>
+    <formfield prop="E-mail" ng-model="house.email" type="email" ></formfield>
+    <formfield prop="Initial Visit" ng-model="house.initialVisit" type="date" ></formfield>
+    <formfield prop="Renewal" ng-model="house.renew" type="date" ></formfield>
     <div class="btn-group">
         <a class="btn btn-large btn-danger" ng-click="renew()" ng-class="{disabled: index < 0}">Renew</a>
     </div>
-    <formfield prop="Ethnicity" ng-model="house.ethnic"></formfield>
-    <formfield prop="# of People in house" ng-model="house.numpeople"></formfield>
+    <formfield prop="Ethnicity" ng-model="house.ethnic" type="search" ></formfield>
+    <formfield prop="# of People in house" ng-model="house.numpeople" type="numbers" ></formfield>
 
 
     <div class="active" name="peopleSection" ng-repeat="people in house.people">
-        <formfield prop="Last Name" ng-model="people.lname"></formfield>
-        <formfield prop="First Name" ng-model="people.fname"></formfield>
-        <formfield prop="Birthdate" ng-model="people.bdate"></formfield>
-        <formfield prop="ID Type" ng-model="people.idtype"></formfield>
-        <formfield prop="Sex" ng-model="people.sex"></formfield>
-        <formfield prop="Head" ng-model="people.head"></formfield>
+        <formfield prop="Last Name" ng-model="people.lname" type="text" ></formfield>
+        <formfield prop="First Name" ng-model="people.fname" type="text" ></formfield>
+        <formfield prop="Birthdate" ng-model="people.bdate" type="date" ></formfield>
+        <formfield prop="ID Type" ng-model="people.idtype" type="search" ></formfield>
+        <formfield prop="Sex" ng-model="people.sex" type="search" ></formfield>
+        <formfield prop="Head" ng-model="people.head" type="checkbox" ></formfield>
         <div class="btn-group">
-            <a class="btn btn-large btn-danger" ng-click="delete()" ng-class="{disabled: index < 0}">Delete</a>
+            <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
         </div>
     </div>
 
@@ -44,19 +44,20 @@
         <div class="btn-group">
             <a class="btn btn-large" ng-click="addPerson()"><i class="icon-plus"></i>Add</a>
         </div>
-        <formfield prop="Last Name" ng-model="selectedpeople.lname"></formfield>
-        <formfield prop="First Name" ng-model="selectedpeople.fname"></formfield>
-        <formfield prop="Birthdate" ng-model="selectedpeople.bdate"></formfield>
-        <formfield prop="ID Type" ng-model="selectedpeople.idtype"></formfield>
-        <formfield prop="Sex" ng-model="selectedpeople.sex"></formfield>
+        <formfield prop="Last Name" ng-model="selectedpeople.lname" type="text" ></formfield>
+        <formfield prop="First Name" ng-model="selectedpeople.fname" type="text" ></formfield>
+        <formfield prop="Birthdate" ng-model="selectedpeople.bdate" type="date" ></formfield>
+        <formfield prop="ID Type" ng-model="selectedpeople.idtype" type="search" ></formfield>
+        <formfield prop="Sex" ng-model="selectedpeople.sex" type="search" ></formfield>
+        <formfield prop="Head" ng-model="people.head" type="checkbox" ></formfield>
     </div>
 
 
     <div class="active" name="foodTaken" ng-repeat="foodtaken in house.foodtaken">
-        <formfield prop="amount" ng-model="foodtaken.amount"></formfield>
-        <formfield prop="On" ng-model="foodtaken.date"></formfield>
-        <formfield prop="By" ng-model="foodtaken.by"></formfield>
-        <formfield prop="time" ng-model="foodtaken.time"></formfield>
+        <formfield prop="amount" ng-model="foodtaken.amount" type="number" ></formfield>
+        <formfield prop="On" ng-model="foodtaken.date" type="date" ></formfield>
+        <formfield prop="By" ng-model="foodtaken.by" type="text" ></formfield>
+        <!--<formfield prop="time" ng-model="foodtaken.time" type="datetime" ></formfield>-->
     </div>
 
 
@@ -64,10 +65,9 @@
         <div class="btn-group">
             <a class="btn btn-large" ng-click="addFood()"><i class="icon-plus"></i>Add</a>
         </div>
-        <formfield prop="amount" ng-model="selectedfoodtaken.amount"></formfield>
-        <formfield prop="On" ng-model="selectedfoodtaken.date"></formfield>
-        <formfield prop="By" ng-model="selectedfoodtaken.by"></formfield>
-        <formfield prop="time" ng-model="selectedfoodtaken.time"></formfield>
+        <formfield prop="amount" ng-model="foodtaken.amount" type="number" ></formfield>
+        <formfield prop="On" ng-model="foodtaken.date" type="date" ></formfield>
+        <formfield prop="By" ng-model="foodtaken.by" type="text" ></formfield>
     </div>
 
 

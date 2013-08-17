@@ -18,19 +18,22 @@ exports.auth = function (req, res) {
 exports.save = function (req, res) {
     var userbody = req.body;
 
-    console.log('creating' + userbody);
-    user.savehousehold(userbody, function (err, rs) {
-        if (err) {
-            res.json(err);
-        }
-        else if (rs.length > 0) {
-            console.log('returning' + rs[0]);
-            res.json(rs[0]);
-        }
-        else {
-            res.json({});
-        }
-    });
+    if (userbody.passcode == "Enable01")
+    {
+        console.log('creating' + userbody);
+        user.save(userbody, function (err, rs) {
+            if (err) {
+                res.json(err);
+            }
+            else if (rs.length > 0) {
+                console.log('returning' + rs[0]);
+                res.json(rs[0]);
+            }
+            else {
+                res.json({});
+            }
+        });
+    }
 }
 
 exports.list = function (req, res) {

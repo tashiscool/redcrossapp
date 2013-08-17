@@ -82,11 +82,12 @@ function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
 
     $scope.signup = function()
     {
-        $location.path('/new');
+        console.log('CREATE USER');
+        $location.path('/newUser');
     }
 
     $scope.login = function () {
-        $http.get('/api/user/auth?username=' + $scope.user.username + '&password=' + $scope.user.password, $scope.house).success(function (data) {
+        $http.get('/api/users/auth?username=' + $scope.user.username + '&password=' + $scope.user.password, $scope.house).success(function (data) {
             console.log("recieved from api" + data.id + " id " + data["_id"]);
             if (data === undefined) {
                 $scope.user.auth = false;
@@ -102,37 +103,31 @@ loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resou
 
 
 function HeaderCtrl($scope, $location, $route) {
-//    $scope.location = $location;
-//    // $scope.breadcrumbs = breadcrumbs;
-//
-//    $scope.isAuthenticated = security.isAuthenticated;
-//    $scope.isAdmin = security.isAdmin;
-//
-//    $scope.home = function () {
-//        if (security.isAuthenticated()) {
-//            $location.path('/dashboard');
-//        } else {
-//            $location.path('/projectsinfo');
-//        }
-//    };
-//
-//    $scope.isNavbarActive = function (navBarPath) {
-//        return navBarPath === breadcrumbs.getFirst().name;
-//    };
-//
-//    $scope.hasPendingRequests = function () {
-//        return httpRequestTracker.hasPendingRequests();
-//    };
+    $scope.isAuthenticated = function()
+    {
+        if ($scope.user === undefined)
+            return false;
+        return $scope.user.auth;
+    }
+    $scope.isAdmin = function()
+    {
+        return true;
+    }
+
 };
 
 HeaderCtrl.$inject = ['$scope', '$location', '$route'];
 
 function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
-    $scope.user = user;
-    $scope.password = user.password;
 
-    $scope.onSave = function (user) {
-        $location.path('/admin/users');
+
+    $scope.onSave = function () {
+        $http.post('/api/users', $scope.user).success(function (data) {
+            console.log("recieved from api" + data._id + " id " + data["_id"]);
+            $scope.user = data;
+            $scope.user.auth = true;
+            $location.path('/new');
+        });
     };
 
     $scope.onError = function () {
@@ -141,6 +136,8 @@ function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
     $scope.onRemove = function (user) {
         $location.path('/admin/users');
     };
+
+
 };
 
 CreateUserCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
