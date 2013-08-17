@@ -50,7 +50,12 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource) {
         $scope.offset = pg - 1
         $scope.houses = HouseholdService.query({offset: $scope.offset, limit: $scope.limit})
     }
-
+    $scope.addPerson = function(){
+        $scope.house.push($scope.selectedpeople);
+    }
+    $scope.addFood =function(){
+        $scope.house.push($scope.selectedpeople);
+    }
 }
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
 
@@ -75,6 +80,11 @@ EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBoo
 
 function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
 
+    $scope.signup = function()
+    {
+        $location.path('/new');
+    }
+
     $scope.login = function () {
         $http.get('/api/user/auth?username=' + $scope.user.username + '&password=' + $scope.user.password, $scope.house).success(function (data) {
             console.log("recieved from api" + data.id + " id " + data["_id"]);
@@ -83,6 +93,7 @@ function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
             }
             else {
                 $scope.user.auth = true;
+                $location.path('/new');
             }
         });
     }
@@ -90,31 +101,31 @@ function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
 loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
 
 
-function HeaderCtrl($scope, $location, $route, security, breadcrumbs, notifications, httpRequestTracker) {
-    $scope.location = $location;
-    // $scope.breadcrumbs = breadcrumbs;
-
-    $scope.isAuthenticated = security.isAuthenticated;
-    $scope.isAdmin = security.isAdmin;
-
-    $scope.home = function () {
-        if (security.isAuthenticated()) {
-            $location.path('/dashboard');
-        } else {
-            $location.path('/projectsinfo');
-        }
-    };
-
-    $scope.isNavbarActive = function (navBarPath) {
-        return navBarPath === breadcrumbs.getFirst().name;
-    };
-
-    $scope.hasPendingRequests = function () {
-        return httpRequestTracker.hasPendingRequests();
-    };
+function HeaderCtrl($scope, $location, $route) {
+//    $scope.location = $location;
+//    // $scope.breadcrumbs = breadcrumbs;
+//
+//    $scope.isAuthenticated = security.isAuthenticated;
+//    $scope.isAdmin = security.isAdmin;
+//
+//    $scope.home = function () {
+//        if (security.isAuthenticated()) {
+//            $location.path('/dashboard');
+//        } else {
+//            $location.path('/projectsinfo');
+//        }
+//    };
+//
+//    $scope.isNavbarActive = function (navBarPath) {
+//        return navBarPath === breadcrumbs.getFirst().name;
+//    };
+//
+//    $scope.hasPendingRequests = function () {
+//        return httpRequestTracker.hasPendingRequests();
+//    };
 };
 
-HeaderCtrl.$inject = ['$scope', '$location', '$route', 'security', 'breadcrumbs', 'notifications', 'httpRequestTracker'];
+HeaderCtrl.$inject = ['$scope', '$location', '$route'];
 
 function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
     $scope.user = user;

@@ -11,8 +11,8 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
         $routeProvider.when('/new', {controller: CreateCtrl, templateUrl: 'partials/details.html'});
         $routeProvider.when('/find', {controller: FindCtrl, templateUrl: 'partials/find.html'});
         $routeProvider.when('/login', { templateUrl: 'partials/login.html', controller: loginCtrl });
-        $routeProvider.when('/newUser', { templateUrl: 'partials/user-edit.tpl.html', controller: CreateUserCtrl });
-        $routeProvider.when('/editUser', { templateUrl: 'partials/user-edit.tpl.html', controller: EditUserCtrl });
+        $routeProvider.when('/newUser', { templateUrl: 'partials/user.html', controller: CreateUserCtrl });
+        $routeProvider.when('/editUser', { templateUrl: 'partials/user.html', controller: EditUserCtrl });
         $routeProvider.when('/listUsers', { templateUrl: 'partials/user-list.tpl.html', controller: ShowUsersCtrl });
         $routeProvider.otherwise({redirectTo: '/new'});
     }]).
