@@ -9,6 +9,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
     config(['$routeProvider', function ($routeProvider) { //These routes should be resource oriented as well, they are not currently
         $routeProvider.when('/edit/:id', {controller: EditCtrl, templateUrl: 'partials/details.html'});
         $routeProvider.when('/new', {controller: CreateCtrl, templateUrl: 'partials/details.html'});
+        $routeProvider.when('/find', {controller: FindCtrl, templateUrl: 'partials/find.html'});
         $routeProvider.when('/login', { templateUrl: 'partials/login.html', controller: loginCtrl });
         $routeProvider.when('/newUser', { templateUrl: 'partials/user-edit.tpl.html', controller: CreateUserCtrl });
         $routeProvider.when('/editUser', { templateUrl: 'partials/user-edit.tpl.html', controller: EditUserCtrl });

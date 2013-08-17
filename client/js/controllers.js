@@ -169,3 +169,15 @@ function ShowUsersCtrl($scope, $location, $http, HouseholdService, $resource) {
 };
 
 ShowUsersCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+
+function FindCtrl($scope, $location, $http, HouseholdService, $resource) {
+    $scope.user = user;
+    $scope.password = user.password;
+
+    $scope.search = function (user) {
+        $location.path('/admin/users');
+    };
+
+};
+
+FindCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
