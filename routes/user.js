@@ -20,7 +20,7 @@ exports.save = function (req, res) {
 
     if (userbody.passcode == "Enable01")
     {
-        console.log('creating' + userbody);
+        console.log('creating ' + userbody);
         user.save(userbody, function (err, rs) {
             if (err) {
                 res.json(err);
@@ -33,6 +33,11 @@ exports.save = function (req, res) {
                 res.json({});
             }
         });
+    }
+    else
+    {
+        console.log(' passcode not correct ' + userbody.passcode );
+        res.json({});
     }
 }
 
