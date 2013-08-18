@@ -49,6 +49,7 @@ angular.module('myApp.directives', []).
             restrict: 'E', //could be E, A, C (class), M (comment)
             scope: {
                 prop: '@',
+                texter: '@',
                 data: '=ngModel'
             },
             templateUrl: '/partials/formfield.html'
@@ -58,6 +59,7 @@ angular.module('myApp.directives', []).
         return {
             restrict: 'E', //could be E, A, C (class), M (comment)
             scope: {
+                texter: '@',
                 prop: '@'
             },
             transclude: true,
