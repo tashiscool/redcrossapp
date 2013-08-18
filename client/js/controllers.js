@@ -3,20 +3,20 @@
 /* Controllers */
 
 
-function CreateCtrl($scope, $location, $http, HouseholdService, $resource) {
+function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
     init();
 
     var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
 
     function init() {
-        $scope.user = { username: "", password: "", auth: false};
         $scope.action = 'Add';
         var house = {};
         $scope.house = house;
-        // HouseholdService.save($scope.house, function() {
-        //$location.path('/edit/'+$scope.house["_id"])
-        // })
-        if (!$scope.user.auth) {
+
+        $scope.user = userService.user.data;
+        console.log("User " + $scope.user);
+        if ($scope.user == undefined || !$scope.user.auth) {
+            console.log("redirecting to login");
             $location.path('/login');
         }
     }
@@ -57,7 +57,7 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource) {
         $scope.house.push($scope.selectedpeople);
     }
 }
-CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
 
 
 function EditCtrl($scope, $location, $routeParams) {
@@ -78,7 +78,7 @@ function EditCtrl($scope, $location, $routeParams) {
 
 EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl', 'userCreateUrl'];
 
-function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
+function loginCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
 
     $scope.signup = function()
     {
@@ -87,25 +87,30 @@ function loginCtrl($scope, $location, $http, HouseholdService, $resource) {
     }
 
     $scope.login = function () {
-        $http.get('/api/users/auth?username=' + $scope.user.username + '&password=' + $scope.user.password, $scope.house).success(function (data) {
-            console.log("recieved from api" + data.id + " id " + data["_id"]);
+        $http.get('/api/users/auth?username=' + $scope.user.username + '&password=' + $scope.user.password).success(function (data) {
+            console.log("recieved from api" + data + " id " + data["_id"]);
+            $scope.user = userService.user.data = data;
             if (data === undefined) {
+                $scope.user = {};
                 $scope.user.auth = false;
             }
             else {
+                console.log("user defined " + $scope.user);
                 $scope.user.auth = true;
                 $location.path('/new');
             }
         });
     }
 }
-loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
+loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource', 'userService'];
 
 
-function HeaderCtrl($scope, $location, $route) {
+function HeaderCtrl($scope, $location, $route, userService, $http) {
     $scope.isAuthenticated = function()
     {
-        if ($scope.user === undefined)
+        $scope.user = userService.user.data;
+        console.log("Step " + $scope.user);
+        if ($scope.user === undefined || $scope.user == null)
             return false;
         return $scope.user.auth;
     }
@@ -113,10 +118,18 @@ function HeaderCtrl($scope, $location, $route) {
     {
         return true;
     }
+    $scope.search = function()
+    {
+        var searchterm = $scope.menu.id;
+        $scope.results = [];
+        $http.get('/api/households/search/'+searchterm).success(function(data){
+            $scope.results.push(data);
+        });
+    }
 
 };
 
-HeaderCtrl.$inject = ['$scope', '$location', '$route'];
+HeaderCtrl.$inject = ['$scope', '$location', '$route','userService', '$http'];
 
 function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
 
@@ -143,8 +156,8 @@ function CreateUserCtrl($scope, $location, $http, HouseholdService, $resource) {
 CreateUserCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
 
 function EditUserCtrl($scope, $location, $http, HouseholdService, $resource) {
-    $scope.user = user;
-    $scope.password = user.password;
+    //$scope.user = user;
+    //$scope.password = user.password;
 
     $scope.onSave = function (user) {
         $location.path('/admin/users');
@@ -161,8 +174,8 @@ function EditUserCtrl($scope, $location, $http, HouseholdService, $resource) {
 EditUserCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource'];
 
 function ShowUsersCtrl($scope, $location, $http, HouseholdService, $resource) {
-    $scope.user = user;
-    $scope.password = user.password;
+//    $scope.user = user;
+//    $scope.password = user.password;
 
     $scope.onSave = function (user) {
         $location.path('/admin/users');

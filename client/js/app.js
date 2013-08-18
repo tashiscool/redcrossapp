@@ -18,7 +18,10 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
     }]).
     factory('HouseholdService', function ($resource) {
         return $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
-    })
+    }).factory("userService", function(){
+
+        return {user: {data: null } }
+    });
 ;
 
 

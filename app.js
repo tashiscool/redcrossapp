@@ -107,6 +107,7 @@ app.get('/logout', function (req, res) {
     res.redirect('/login');
 });
 
+app.get('/api/households/search/:term', households.getbyperson);
 var server = http.createServer(app)
 
 reload(server, app)

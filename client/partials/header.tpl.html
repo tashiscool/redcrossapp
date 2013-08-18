@@ -5,12 +5,12 @@
             <li ng-class="{active:isNavbarActive('households')}"><a href="/new">Add Household</a></li>
             <li class="dropdown" ng-class="{active:isNavbarActive('admin'), open:isAdminOpen}" ng-show="isAdmin()">
                 <a id="adminmenu" role="button" class="dropdown-toggle" ng-click="isAdminOpen=!isAdminOpen">
-                    Admin
+                    Quick Search
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="adminmenu">
-                    <li><a tabindex="-1" href="/admin/projects" ng-click="isAdminOpen=false">Manage Projects</a></li>
-                    <li><a tabindex="-1" href="/admin/users" ng-click="isAdminOpen=false">Manage Users</a></li>
+                    <li><input class="span6" type="text" id="id" name="id" ng-model="menu.id"/></li>
+                    <li><a tabindex="-1" ng-click="search()">Go</a></li>
                 </ul>
             </li>
         </ul>

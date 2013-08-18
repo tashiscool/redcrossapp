@@ -59,11 +59,9 @@ exports.del = function (req, res) {
 };
 
 exports.getbyperson = function (req, res) {
-    var id = req.params.id;
-    var birthday = req.params.birthday;
-    var lastname = req.params.lastname;
+    var term = req.params.term;
 
-    var query = '{ ' + _id + ' : "' + id + '"}';
+    var query = { $or:[{ _id   : id },{ 'people.lname'  :  id },{ 'people.bdate'  :  id }]};
     household.gethousehold(query, function (docs) {
         res.json(docs);
     });
