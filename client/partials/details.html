@@ -1,6 +1,6 @@
 <div class = "well">
 
-<h2>{{action}} HouseHold</h2>
+<h2>Basic Household Information</h2>
 
 <script texter="text/ng-template" id="formfield2.html">
     <div id="template">
@@ -43,7 +43,7 @@
 
 </table>
 
-<h3>Household Details</h3>
+<h3>Household Members</h3>
 
 <table class="table-bordered table-condensed table-striped table-hover">
 
@@ -61,7 +61,14 @@
 
 </div>
 
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-large" ng-click="addFood()"><i class="icon-plus"></i>Add</a>
+        </div>
+    </div>
+
 </table>
+<h3>Details of Previous Pick-up</h3>
 
     <div class="btn-toolbar">
         <div class="btn-group">
@@ -80,23 +87,12 @@
         <td><formfield prop="Amount Received" ng-model="foodtaken.amount" type="number" ></formfield></td>
         <td><formfield prop="Date Received" ng-model="foodtaken.date" type="date" ></formfield></td>
         <td><formfield prop="Picked Up By" ng-model="foodtaken.by" type="text" ></formfield></td>
-        <td><formfield prop="time" ng-model="foodtaken.time" type="datetime" ></formfield></td>
+        <td><formfield prop="Time" ng-model="foodtaken.time" type="datetime" ></formfield></td>
         <td><div class="btn-group">
             <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
         </div></td>
     </div>
 </table>
-
-
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            <a class="btn btn-large" ng-click="addFood()"><i class="icon-plus"></i>Add</a>
-        </div>
-        <td><formfield prop="Amount Received" ng-model="foodtaken.amount" type="number" ></formfield></td>
-        <td><formfield prop="Date Received" ng-model="foodtaken.date" type="date" ></formfield></td>
-        <td><formfield prop="Picked Up By" ng-model="foodtaken.by" type="text" ></formfield></td>
-        <td><formfield prop="time" ng-model="foodtaken.time" type="datetime" ></formfield></td>
-    </div>
 
     <div class="form-actions">
         <button ng-click="save()" class="btn btn-primary">
@@ -104,6 +100,6 @@
         </button>
         <a href="/" class="btn">Cancel</a>
     </div>
-    
+
 </form>
 </div>
