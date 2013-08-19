@@ -107,6 +107,28 @@
     </div>
 </table>
 
+<h3>House Hold Income Information</h3>
+
+<table class="table-bordered table-condensed table-striped table-hover">
+        <td><formfield prop="Employed" ng-model="house.employed" type="checkbox" ></formfield></td>
+        <td><formfield prop="Unemployment Insurance" ng-model="house.unemployedIns" type="checkbox" ></formfield></td>
+        <td><formfield prop="SSI/SSDI" ng-model="house.ssiSSDI" type="checkbox" ></formfield></td>
+        <td><formfield prop="Food Stamps" ng-model="house.foodStamps" type="checkbox" ></formfield><vr/>
+        <formfield prop="Food Stamp Amount" ng-model="house.foodStampsAmount" type="input" ></formfield></td>
+        <td><formfield prop="Welfare" ng-model="house.welfare" type="checkbox" ></formfield></td>
+        <td><formfield prop="Child Support" ng-model="house.childsupport" type="checkbox" ></formfield></td>
+        <td><formfield prop="Veteran" ng-model="house.veteran" type="checkbox" ></formfield></td>
+        <td><formfield prop="WIC" ng-model="house.WIC" type="checkbox" ></formfield></td>
+        <td><formfield prop="Medicaid/MassHealth" ng-model="house.medicaidMassHealth" type="checkbox" ></formfield></td>
+        <td><formfield prop="No Income" ng-model="house.noIncome" type="checkbox" ></formfield><vr/>
+        <formfield prop="Monthly House Hold Income" ng-model="house.monthlyIncome" type="number" ></formfield></td>
+     <td><div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-large" ng-click="addFood()"><i class="icon-plus"></i>Add</a>
+        </div>
+    </div></td>
+</table>
+
     <div class="form-actions">
         <button ng-click="save()" class="btn btn-primary">
             {{action}}
