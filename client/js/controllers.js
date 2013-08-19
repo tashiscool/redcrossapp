@@ -9,8 +9,12 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
     var HouseHold = $resource('/api/households/:id', {id:'@id'}, {update:{method:'PUT'}});
 
     function init() {
-        if ( $scope.house == null)
+        if ( $scope.house == null || $scope.house === undefined)
+        {
             $scope.house = {};
+            $scope.house.people = [];
+            $scope.house.foodtaken = [];
+        }
 
         $scope.save();
 
@@ -52,10 +56,10 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
         $scope.houses = HouseholdService.query({offset:$scope.offset, limit:$scope.limit})
     };
     $scope.addPerson = function () {
-        $scope.house.push($scope.selectedpeople);
+        $scope.house.people.push($scope.selectedpeaple);
     };
     $scope.addFood =function(){
-        $scope.house.push($scope.selectedpeople);
+        $scope.house.foodtaken.push($scope.selectedfoodtaken);
     }
 }
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
