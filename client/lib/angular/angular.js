@@ -2343,7 +2343,7 @@
             }
         } else if (isArray(fn)) {
             last = fn.length - 1;
-            assertArgFn(fn[last], 'fn')
+            assertArgFn(fn[last], 'fn');
             $inject = fn.slice(0, last);
         } else {
             assertArgFn(fn, 'fn', true);
@@ -4270,7 +4270,7 @@
                                         parentGet = $parse(attrs[attrName]);
                                         scope[scopeName] = function (locals) {
                                             return parentGet(parentScope, locals);
-                                        }
+                                        };
                                         break;
                                     }
 
@@ -4915,7 +4915,7 @@
              */
             $interpolate.startSymbol = function () {
                 return startSymbol;
-            }
+            };
 
 
             /**
@@ -4932,7 +4932,7 @@
              */
             $interpolate.endSymbol = function () {
                 return endSymbol;
-            }
+            };
 
             return $interpolate;
         }];
@@ -5084,7 +5084,7 @@
             if (absoluteLinkUrl.indexOf(appBaseUrl) == 0) {
                 return absoluteLinkUrl;
             }
-        }
+        };
 
 
         this.$$parse(url);
@@ -5146,7 +5146,7 @@
             if (absoluteLinkUrl.indexOf(appBaseUrl) == 0) {
                 return absoluteLinkUrl;
             }
-        }
+        };
 
 
         this.$$parse(url);
@@ -6508,7 +6508,7 @@
             fn = (pathKeysLength < 6)
                 ? cspSafeGetterFn(pathKeys[0], pathKeys[1], pathKeys[2], pathKeys[3], pathKeys[4])
                 : function (scope, locals) {
-                var i = 0, val
+                var i = 0, val;
                 do {
                     val = cspSafeGetterFn(
                         pathKeys[i++], pathKeys[i++], pathKeys[i++], pathKeys[i++], pathKeys[i++]
@@ -14265,7 +14265,7 @@
                     ngModelCtrl = ngModelCtrl_;
                     nullOption = nullOption_;
                     unknownOption = unknownOption_;
-                }
+                };
 
 
                 self.addOption = function (value) {
@@ -14294,12 +14294,12 @@
                     $element.prepend(unknownOption);
                     $element.val(unknownVal);
                     unknownOption.prop('selected', true); // needed for IE
-                }
+                };
 
 
                 self.hasOption = function (value) {
                     return optionsMap.hasOwnProperty(value);
-                }
+                };
 
                 $scope.$on('$destroy', function () {
                     // disable unknown option so that we don't do work when the whole select is being destroyed

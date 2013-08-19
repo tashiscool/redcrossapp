@@ -6,12 +6,13 @@
 function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
     init();
 
-    var HouseHold = $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
+    var HouseHold = $resource('/api/households/:id', {id:'@id'}, {update:{method:'PUT'}});
 
     function init() {
-        $scope.action = 'Add';
-        var house = {};
-        $scope.house = house;
+        if ( $scope.house == null)
+            $scope.house = {};
+
+        $scope.save();
 
         $scope.user = userService.user.data;
         console.log("User " + $scope.user);
@@ -27,32 +28,32 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
         // })
         $http.post('/api/households', $scope.house).success(function (data) {
             console.log("recieved from api" + data.id + " id " + data["_id"]);
-            $scope.house.id = data["_id"]
+            $scope.house.id = data["_id"];
             $location.path('/edit/' + $scope.house.id);
         });
-    }
+    };
 
 
     $scope.select = function (i) {
-        $scope.index = index
-        index = i
+        $scope.index = index;
+        index = i;
         $scope.selectedId = $scope.houses[index].id
-    }
+    };
 
     $scope.delete = function () {
         if (index >= 0) {
-            HouseholdService.delete({id: $scope.houses[index].id})
+            HouseholdService.delete({id:$scope.houses[index].id});
             $scope.houses.splice(index, 1)
         }
-    }
+    };
 
     $scope.loadPage = function (pg) {
-        $scope.offset = pg - 1
-        $scope.houses = HouseholdService.query({offset: $scope.offset, limit: $scope.limit})
-    }
-    $scope.addPerson = function(){
+        $scope.offset = pg - 1;
+        $scope.houses = HouseholdService.query({offset:$scope.offset, limit:$scope.limit})
+    };
+    $scope.addPerson = function () {
         $scope.house.push($scope.selectedpeople);
-    }
+    };
     $scope.addFood =function(){
         $scope.house.push($scope.selectedpeople);
     }
@@ -61,18 +62,23 @@ CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$reso
 
 
 function EditCtrl($scope, $location, $routeParams) {
-    var id = $routeParams.id
+    var id = $routeParams.id;
     // HouseholdService.get({id: id}, function(resp) {
     //   $scope.house = resp.content
     // })
     //$scope.house = HouseholdService.get({id: id})
-    $scope.action = "Update"
+    $scope.action = "Update";
 
 
     $scope.save = function () {
-        // HouseholdService.update({id: id}, $scope.house, function() {
-        //   $location.path('/')
+        // HouseHold.save($scope.house, function() {
+        //   $location.path('/edit/'+$scope.house["_id"])
         // })
+        $http.put('/api/households/'+$scope.house.id, $scope.house).success(function (data) {
+            console.log("Updated received from api" + data.id + " id " + data["_id"]);
+            $scope.house.id = data["_id"];
+            $location.path('/edit/' + $scope.house.id);
+        });
     }
 }
 
@@ -80,11 +86,10 @@ EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBoo
 
 function loginCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
 
-    $scope.signup = function()
-    {
+    $scope.signup = function () {
         console.log('CREATE USER');
         $location.path('/newUser');
-    }
+    };
 
     $scope.login = function () {
         $http.get('/api/users/auth?username=' + $scope.user.username + '&password=' + $scope.user.password).success(function (data) {
@@ -106,18 +111,16 @@ loginCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resou
 
 
 function HeaderCtrl($scope, $location, $route, userService, $http) {
-    $scope.isAuthenticated = function()
-    {
+    $scope.isAuthenticated = function () {
         $scope.user = userService.user.data;
         console.log("Step " + $scope.user);
         if ($scope.user === undefined || $scope.user == null)
             return false;
         return $scope.user.auth;
-    }
-    $scope.isAdmin = function()
-    {
+    };
+    $scope.isAdmin = function () {
         return true;
-    }
+    };
     $scope.search = function()
     {
         var searchterm = $scope.menu.id;
