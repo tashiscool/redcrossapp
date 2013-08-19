@@ -44,13 +44,12 @@ angular.module('myApp.directives', []).
             }
         }
     }).
-    directive('formfield',function (scope, element, attrs) {
+    directive('formfield',function () {
         return {
             restrict: 'E', //could be E, A, C (class), M (comment)
             scope: {
-                prop: '@prop',
-                fieldtype: '@type',
-                otherType: '@otherType',
+                prop: '@',
+                type: '@type',
                 data: '=ngModel'
             },
             templateUrl: '/partials/formfield.html'
