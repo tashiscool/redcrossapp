@@ -37,6 +37,9 @@
   <formfield prop="Renewal Date" ng-model="house.renew"></formfield>
   <formfield prop="# of People in house" ng-model="house.numpeople"></formfield>
   </td>
+  <div class="btn-group">
+         <a class="btn btn-large btn-danger" ng-click="renew()" ng-class="{disabled: index < 0}">Renew</a>
+  </div>
 
 </table>
 
@@ -52,10 +55,25 @@
   <td><formfield prop="ID Type" ng-model="people.idtype"></formfield></td>
   <td><formfield prop="Sex" ng-model="people.sex"></formfield></td>
   <td><formfield prop="Head" ng-model="people.head"></formfield></td>
+  <td><div class="btn-group">
+    <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
+  </div></td>
 
 </div>
 
 </table>
+
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-large" ng-click="addPerson()"><i class="icon-plus"></i>Add</a>
+        </div>
+        <formfield prop="Last Name" ng-model="selectedpeople.lname" type="text" ></formfield>
+        <formfield prop="First Name" ng-model="selectedpeople.fname" type="text" ></formfield>
+        <formfield prop="Birthdate" ng-model="selectedpeople.bdate" type="date" ></formfield>
+        <formfield prop="ID Type" ng-model="selectedpeople.idtype" type="search" ></formfield>
+        <formfield prop="Sex" ng-model="selectedpeople.sex" type="search" ></formfield>
+        <formfield prop="Head" ng-model="people.head" type="checkbox" ></formfield>
+    </div>
 
 <table class="table-bordered table-condensed table-striped table-hover">
     <div class="active" name="foodTaken" ng-repeat="foodtaken in house.foodtaken">
@@ -63,6 +81,9 @@
         <td><formfield prop="Date Received" ng-model="foodtaken.date" type="date" ></formfield></td>
         <td><formfield prop="Picked Up By" ng-model="foodtaken.by" type="text" ></formfield></td>
         <td><formfield prop="time" ng-model="foodtaken.time" type="datetime" ></formfield></td>
+        <td><div class="btn-group">
+            <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
+        </div></td>
     </div>
 </table>
 
