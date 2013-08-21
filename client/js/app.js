@@ -16,8 +16,8 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
         $routeProvider.when('/listUsers', { templateUrl: 'partials/user-list.tpl.html', controller: ShowUsersCtrl });
         $routeProvider.otherwise({redirectTo: '/new'});
     }]).
-    factory('HouseholdService', function ($resource) {
-        return $resource('/api/households/:id', {id: '@id'}, {update: {method: 'PUT'}})
+    factory('HouseholdService', function () {
+        return {house: {data: null } }
     }).factory("userService", function(){
 
         return {user: {data: null } }

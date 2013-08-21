@@ -4,6 +4,14 @@
 
 
 function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
+    $scope.save = function () {
+        $http.post('/api/households', $scope.house).success(function (data) {
+            console.log("recieved from api" + data.id + " id " + data["_id"]);
+            $scope.house.id = data["_id"];
+            $location.path('/edit/' + $scope.house.id);
+        });
+    };
+
     init();
 
     var HouseHold = $resource('/api/households/:id', {id:'@id'}, {update:{method:'PUT'}});
@@ -16,7 +24,7 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
             $scope.house.foodtaken = [];
         }
 
-       // $scope.save();
+        $scope.save();
 
         $scope.user = userService.user.data;
         console.log("User " + $scope.user);
@@ -26,16 +34,7 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
         }
     }
 
-    $scope.save = function () {
-        // HouseHold.save($scope.house, function() {
-        //   $location.path('/edit/'+$scope.house["_id"])
-        // })
-        $http.post('/api/households', $scope.house).success(function (data) {
-            console.log("recieved from api" + data.id + " id " + data["_id"]);
-            $scope.house.id = data["_id"];
-            $location.path('/edit/' + $scope.house.id);
-        });
-    };
+
 
 
     $scope.select = function (i) {
@@ -65,12 +64,17 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
 
 
-function EditCtrl($scope, $location, $routeParams) {
+function EditCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
     var id = $routeParams.id;
-    // HouseholdService.get({id: id}, function(resp) {
-    //   $scope.house = resp.content
-    // })
-    //$scope.house = HouseholdService.get({id: id})
+
+
+    $http.get('/api/households/'+$scope.house.id, $scope.house).success(function (data) {
+        console.log("Updated received from api" + data.id + " id " + data["_id"]);
+        $scope.house.id = HouseholdService.house.data.id = data["_id"];
+        $scope.house = HouseholdService.house.data = data;
+        $location.path('/edit/' + $scope.house.id);
+    });
+
     $scope.action = "Update";
 
 
@@ -86,7 +90,7 @@ function EditCtrl($scope, $location, $routeParams) {
     }
 }
 
-EditCtrl.$inject = ['$location', '$http', '$scope', '$routeParams', 'userLikeBookUrl', 'userNextUrl', 'userCreateUrl'];
+EditCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
 
 function loginCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
 
