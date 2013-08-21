@@ -59,10 +59,10 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
         $scope.houses = HouseholdService.query({offset:$scope.offset, limit:$scope.limit})
     };
     $scope.addPerson = function () {
-        $scope.house.people.push($scope.selectedpeaple);
+        $scope.house.people.push($scope.selectedPeople);
     };
     $scope.addFood =function(){
-        $scope.house.foodtaken.push($scope.selectedfoodtaken);
+        $scope.house.foodtaken.push($scope.selectedFood);
     }
 }
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
@@ -95,6 +95,13 @@ function EditCtrl($scope, $location, $http, HouseholdService, $resource, userSer
             $scope.house.id = data["_id"];
             $location.path('/edit/' + $scope.house.id);
         });
+    }
+
+    $scope.addPerson = function () {
+        $scope.house.people.push($scope.selectedPeople);
+    };
+    $scope.addFood =function(){
+        $scope.house.foodtaken.push($scope.selectedFood);
     }
 }
 
