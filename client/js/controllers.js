@@ -24,7 +24,6 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
             $scope.house.foodtaken = [];
         }
 
-        $scope.save();
 
         $scope.user = userService.user.data;
         console.log("User " + $scope.user);
@@ -32,6 +31,11 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
             console.log("redirecting to login");
             $location.path('/login');
         }
+        else
+        {
+            $scope.save();
+        }
+
     }
 
 
@@ -64,15 +68,19 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
 
 
-function EditCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
+function EditCtrl($scope, $location, $http, HouseholdService, $resource, userService,$routeParams) {
     var id = $routeParams.id;
 
 
-    $http.get('/api/households/'+$scope.house.id, $scope.house).success(function (data) {
-        console.log("Updated received from api" + data.id + " id " + data["_id"]);
-        $scope.house.id = HouseholdService.house.data.id = data["_id"];
-        $scope.house = HouseholdService.house.data = data;
-        $location.path('/edit/' + $scope.house.id);
+
+    console.log("Fecthicng household from api:" + id);
+    $http.get('/api/households/'+id).success(function (data) {
+        console.log("Updated received from api" +data+" " + data.id + " id " + data[0]["_id"]);
+        if (data[0] != null && data[0] != undefined)
+        {
+            $scope.house = HouseholdService.house.data = data[0];
+            $scope.house.id = HouseholdService.house.data.id = data[0]["_id"];
+        }
     });
 
     $scope.action = "Update";
@@ -90,7 +98,7 @@ function EditCtrl($scope, $location, $http, HouseholdService, $resource, userSer
     }
 }
 
-EditCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
+EditCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService','$routeParams'];
 
 function loginCtrl($scope, $location, $http, HouseholdService, $resource, userService) {
 
