@@ -16,7 +16,7 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
             $scope.house.foodtaken = [];
         }
 
-        $scope.save();
+       // $scope.save();
 
         $scope.user = userService.user.data;
         console.log("User " + $scope.user);
