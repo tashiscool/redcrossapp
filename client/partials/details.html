@@ -56,7 +56,7 @@
   <td><formfield prop="Sex" ng-model="people.sex" type="search"></formfield></td>
   <td align = "center"><formfield prop="Primary" ng-model="people.head" type="checkbox"></formfield></td>
   <td><div class="btn-group">
-    <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
+    <a class="btn btn-large btn-danger" ng-click="deletePeople($index)" ng-class="{disabled: index < 0}">Delete</a>
   </div>
   </td>
 
@@ -89,7 +89,7 @@
         <td><formfield prop="Picked Up By" ng-model="foodtaken.by" type="text" ></formfield></td>
         <td><formfield prop="Time" ng-model="foodtaken.time" type="datetime" ></formfield></td>
         <td><div class="btn-group">
-            <a class="btn btn-large btn-danger" ng-click="delete($index)" ng-class="{disabled: index < 0}">Delete</a>
+            <a class="btn btn-large btn-danger" ng-click="deleteFood($index)" ng-class="{disabled: index < 0}">Delete</a>
         </div></td>
     </tr>
 </table>

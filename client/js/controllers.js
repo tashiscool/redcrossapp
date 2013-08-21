@@ -64,6 +64,16 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
     $scope.addFood =function(){
         $scope.house.foodtaken.push($scope.selectedFood);
     }
+    $scope.deletePeople = function (index) {
+        if (index >= 0) {
+            $scope.house.people.splice(index, 1)
+        }
+    };
+    $scope.deleteFood = function (index) {
+        if (index >= 0) {
+            $scope.house.foodtaken.splice(index, 1)
+        }
+    };
 }
 CreateCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService'];
 
@@ -103,6 +113,17 @@ function EditCtrl($scope, $location, $http, HouseholdService, $resource, userSer
     $scope.addFood =function(){
         $scope.house.foodtaken.push($scope.selectedFood);
     }
+    $scope.deletePeople = function (index) {
+        if (index >= 0) {
+            $scope.house.people.splice(index, 1)
+        }
+    };
+    $scope.deleteFood = function (index) {
+        if (index >= 0) {
+            $scope.house.foodtaken.splice(index, 1)
+        }
+    };
+
 }
 
 EditCtrl.$inject = ['$scope', '$location', '$http', 'HouseholdService', '$resource','userService','$routeParams'];
