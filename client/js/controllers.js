@@ -59,10 +59,10 @@ function CreateCtrl($scope, $location, $http, HouseholdService, $resource, userS
         $scope.houses = HouseholdService.query({offset:$scope.offset, limit:$scope.limit})
     };
     $scope.addPerson = function () {
-        $scope.house.people.push($scope.selectedPeople);
+        $scope.house.people.push(jQuery.extend(true, {}, $scope.selectedPeople));
     };
     $scope.addFood =function(){
-        $scope.house.foodtaken.push($scope.selectedFood);
+        $scope.house.foodtaken.push(jQuery.extend(true, {}, $scope.selectedFood));
     }
     $scope.deletePeople = function (index) {
         if (index >= 0) {
@@ -108,10 +108,10 @@ function EditCtrl($scope, $location, $http, HouseholdService, $resource, userSer
     }
 
     $scope.addPerson = function () {
-        $scope.house.people.push($scope.selectedPeople);
+        $scope.house.people.push(jQuery.extend(true, {}, $scope.selectedPeople));
     };
     $scope.addFood =function(){
-        $scope.house.foodtaken.push($scope.selectedFood);
+        $scope.house.foodtaken.push(jQuery.extend(true, {}, $scope.selectedFood));
     }
     $scope.deletePeople = function (index) {
         if (index >= 0) {
